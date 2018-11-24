@@ -1,4 +1,3 @@
-#%%
 import pyscreenshot as ImageGrab
 from PIL import Image
 import PIL
