@@ -1,6 +1,10 @@
 import cv2
 import pickle
 import numpy as np
+import win32gui
+import win32ui
+from ctypes import windll
+from PIL import Image
 
 with open('models/chips/model.pickle', 'rb') as f:
     model = pickle.load(f)
@@ -102,3 +106,44 @@ def walk(image):
     
     if ff in names_list:
         return ff
+
+
+def scrshot(left, top, right, bot):
+
+    hwnd = win32gui.FindWindow('PokerStarsTableFrameClass', None)
+
+    left_l, top_t, right_r, bot_b = win32gui.GetWindowRect(hwnd)
+    left_l = left_l + left
+    top_t = top_t + top
+    right_r = right_r + right
+    bot_b = bot_b + bot
+    
+    w = right_r - left_l
+    h = bot_b - top_t
+
+    hwndDC = win32gui.GetWindowDC(hwnd)
+    mfcDC  = win32ui.CreateDCFromHandle(hwndDC)
+    saveDC = mfcDC.CreateCompatibleDC()
+
+    saveBitMap = win32ui.CreateBitmap()
+    saveBitMap.CreateCompatibleBitmap(mfcDC, w, h)
+
+    saveDC.SelectObject(saveBitMap)
+
+    result = windll.user32.PrintWindow(hwnd, saveDC.GetSafeHdc(), 0)
+
+    bmpinfo = saveBitMap.GetInfo()
+    bmpstr = saveBitMap.GetBitmapBits(True)
+
+    im = Image.frombuffer(
+        'RGB',
+        (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
+        bmpstr, 'raw', 'BGRX', 0, 1)
+
+    win32gui.DeleteObject(saveBitMap.GetHandle())
+    saveDC.DeleteDC()
+    mfcDC.DeleteDC()
+    win32gui.ReleaseDC(hwnd, hwndDC)
+
+    if result == 1:
+        im.save("img/tmp/test.png")
