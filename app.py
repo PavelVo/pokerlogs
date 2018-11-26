@@ -11,20 +11,20 @@ import functools
 from engine.processes import *
 
 def main():
-    image=ImageGrab.grab(bbox=(607,321,696,341)) # X1,Y1,X2,Y2
+    image= scrshot(46, 179, 135, 200) #p1 chips
     x = chips(image)
 
-    for i in range(100):
-        img=ImageGrab.grab(bbox=(603,300,696,320)) # X1,Y1,X2,Y2
+    for i in range(1000):
+        img= scrshot(46, 157, 135, 177) #p1 walk
         new = walk(img)
         
-        image=ImageGrab.grab(bbox=(607,321,696,341)) # X1,Y1,X2,Y2
+        image= scrshot(46, 179, 135, 200) #p1 chips
         y = chips(image)
 
         if (x-y)<0:
             print('P1 winns pot ', str(x)+' '+str(y))
             time.sleep(1)
-            image=ImageGrab.grab(bbox=(607,321,696,341)) # X1,Y1,X2,Y2
+            image= scrshot(46, 179, 135, 200) #p1 chips
             x = chips(image)
             y = chips(image)
             #print(str(x)+' '+str(y))
@@ -32,7 +32,7 @@ def main():
             if  new in ['Call', 'PostSB', 'PostBB', 'Raise', 'Ralse', 'Bet']:
                 #print('P1 ... '+new+' '+ str(x-y)+ ' ... '+str(x)+' '+str(y))
                 print('P1 ... '+new+' '+ str(x-y))
-                image=ImageGrab.grab(bbox=(607,321,696,341)) # X1,Y1,X2,Y2
+                image= scrshot(46, 179, 135, 200) #p1 chips
                 x = chips(image)
                 #time.sleep(0.10)
             #elif x-y==0:
