@@ -108,18 +108,15 @@ def walk(image):
         return ff
 
 
-def scrshot(left, top, right, bot):
+def scrshot(crop_left, crop_top, crop_right, crop_bot):
 
     hwnd = win32gui.FindWindow('PokerStarsTableFrameClass', None)
 
-    left_l, top_t, right_r, bot_b = win32gui.GetWindowRect(hwnd)
-    left_l = left_l + left
-    top_t = top_t + top
-    right_r = right_r + right
-    bot_b = bot_b + bot
+    left, top, right, bot = win32gui.GetWindowRect(hwnd)
+  
+    w = right - left
+    h = bot - top
     
-    w = right_r - left_l
-    h = bot_b - top_t
 
     hwndDC = win32gui.GetWindowDC(hwnd)
     mfcDC  = win32ui.CreateDCFromHandle(hwndDC)
@@ -139,11 +136,5 @@ def scrshot(left, top, right, bot):
         'RGB',
         (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
         bmpstr, 'raw', 'BGRX', 0, 1)
-
-    win32gui.DeleteObject(saveBitMap.GetHandle())
-    saveDC.DeleteDC()
-    mfcDC.DeleteDC()
-    win32gui.ReleaseDC(hwnd, hwndDC)
-
-    if result == 1:
-        im.save("img/tmp/test.png")
+    im = im.crop((crop_left, crop_top, crop_right, crop_bot))
+    return im
