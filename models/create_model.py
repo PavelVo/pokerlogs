@@ -13,7 +13,7 @@ import functools
 
 
 
-def new_walk_model(names):
+def continium_model(names):
     tm = []
     for num_x in names:
         for num_xx in num_x[1]:

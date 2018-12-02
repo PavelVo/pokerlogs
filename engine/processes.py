@@ -16,8 +16,9 @@ knn = cv2.ml.KNearest_create()
 knn.train(model,cv2.ml.ROW_SAMPLE,answer)
 
 def chips(image):
-    image.save('img/tmp/input.png')
-    img = cv2.imread('img/tmp/input.png')
+    img = np.array(image)
+    # image.save('img/tmp/input.png')
+    # img = cv2.imread('img/tmp/input.png')
     image = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(image, 100,255,0)
 
@@ -59,8 +60,9 @@ knn_walk = cv2.ml.KNearest_create()
 knn_walk.train(model_wolk,cv2.ml.ROW_SAMPLE, result_walk)
 
 def walk(image):
-    image.save('img/tmp/in_tmp.png')
-    img = cv2.imread('img/tmp/in_tmp.png')
+    img = np.array(image)
+    # image.save('img/tmp/in_tmp.png')
+    # img = cv2.imread('img/tmp/in_tmp.png')
 
     hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     hsv_pt = np.array([ 0,  0, 120], dtype='uint8')
