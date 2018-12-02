@@ -138,3 +138,15 @@ def scrshot(crop_left, crop_top, crop_right, crop_bot):
         bmpstr, 'raw', 'BGRX', 0, 1)
     im = im.crop((crop_left, crop_top, crop_right, crop_bot))
     return im
+
+def get_vector(image):
+    img = np.array(image)
+    img = cv2.resize(img,(10,10))
+    img = img.reshape((1,300))
+    img = img.astype(np.float32)
+    return img
+
+def check_image(image, knn):
+    img = get_vector(image)
+    ret, results, neighbours, dist = knn.findNearest(img, 2)
+    print(ret, results, neighbours, dist)
