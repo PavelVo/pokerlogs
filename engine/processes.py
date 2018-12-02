@@ -149,4 +149,4 @@ def get_vector(image):
 def check_image(image, knn):
     img = get_vector(image)
     ret, results, neighbours, dist = knn.findNearest(img, 2)
-    print(ret, results, neighbours, dist)
+    return ret, results, neighbours, dist

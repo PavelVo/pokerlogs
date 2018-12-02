@@ -1,45 +1,42 @@
 #%%
+import shutil
 from engine.processes import *
 from models.data import *
-# image = scrshot(80, 157, 135, 195) # empty
-# l = create_model(image, 'empty', 'empty')
+import time
+# image = scrshot(64, 53, 140, 68) # hand
+# l = create_model(image, 'hand', 'hand')
 # image
 
-image = scrshot(80, 157, 135, 195) # empty
+# image = scrshot(80, 157, 135, 195) # empty
 
-# empty = lern_model('empty')
-check_image(image, empty)
-image
+# # empty = lern_model('empty')
+# ret, results, neighbours, dist = check_image(image, empty)
+# image
 
-mage= scrshot(46, 179, 135, 200) #p1 chips
-    x = chips(image)
+# img= scrshot(46, 157, 135, 177) #p1 walk
+# img
+# new = walk(img)
+# new
 
-    for i in range(1000):
-        img= scrshot(46, 157, 135, 177) #p1 walk
-        new = walk(img)
-        
-        image= scrshot(46, 179, 135, 200) #p1 chips
-        y = chips(image)
-
-        if (x-y)<0:
-            print('P1 winns pot ', str(x)+' '+str(y))
-            time.sleep(1)
-            image= scrshot(46, 179, 135, 200) #p1 chips
-            x = chips(image)
-            y = chips(image)
-            #print(str(x)+' '+str(y))
-        else:
-            if  new in ['Call', 'PostSB', 'PostBB', 'Raise', 'Ralse', 'Bet']:
-                #print('P1 ... '+new+' '+ str(x-y)+ ' ... '+str(x)+' '+str(y))
-                print('P1 ... '+new+' '+ str(x-y))
-                image= scrshot(46, 179, 135, 200) #p1 chips
-                x = chips(image)
-                #time.sleep(0.10)
-            #elif x-y==0:
-            elif new in ['Fold', 'Check', 'Muck']:
-                #print('P1 ... '+new+' ... '+str(x)+' '+str(y))
-                print('P1 ... '+new)
-                time.sleep(0.60)
+# img= scrshot(350, 90, 435, 110) #p2 walk
+# # img
+# new = walk(img)
+# new
+shutil.rmtree('models/hand')
+image = scrshot(64, 53, 140, 68) # hand
+create_model(image, 'hand', 'hand')
+hand = lern_model('hand')
+ret, results, neighbours, dist = check_image(image, hand)
+for x in range(50):
+    image = scrshot(64, 53, 140, 68) # hand
+    ret, results, neighbours, dist = check_image(image, hand)
+    if dist[0][0] > 0:
+        shutil.rmtree('models/hand')
+        create_model(image, 'hand', 'hand')
+        hand = lern_model('hand')
+        print('new hand')
+    print('last hand')
+    time.sleep(3)
 
 
 

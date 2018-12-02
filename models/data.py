@@ -123,12 +123,12 @@ def create_model(image, name, model_name, l=False):
         os.makedirs('models/%s'%model_name)
         with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
             pickle.dump(l, f)
-        print('new model created')
+        # print('new model created')
         return l
     else:
         ids = l[0][0][0] + 1
         l = create_l(l, image, ids, name)
         with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
             pickle.dump(l, f)
-        print('add to model')
+        # print('add to model')
         return l
