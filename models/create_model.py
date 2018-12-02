@@ -11,6 +11,8 @@ import time
 import math, operator
 import functools
 
+def new_model(img):
+    
 
 
 def continium_model(names):
