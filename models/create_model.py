@@ -11,9 +11,6 @@ import time
 import math, operator
 import functools
 
-def new_model(img):
-    
-
 
 def continium_model(names):
     tm = []
@@ -85,4 +82,13 @@ def continium_model(names):
     for n_l in names:
         names_list.append(n_l[1])
     
-    return model, res, lst, names_list
+    with open ('models/walk/model_walk.pickle', 'wb') as f:
+        pickle.dump(model, f)
+    with open ('models/walk/result_walk.pickle', 'wb') as f:
+        pickle.dump(res, f)
+    with open ('models/walk/convert_walk.pickle', 'wb') as f:
+        pickle.dump(lst, f)
+    with open ('models/walk/names_list.pickle', 'wb') as f:
+        pickle.dump(names_list, f)
+    
+    print('models sevd to models/walk')

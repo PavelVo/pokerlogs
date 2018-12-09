@@ -74,6 +74,7 @@ def walk(image):
     imgx = np.invert(np.array(img, dtype='uint8'))
     image = cv2.cvtColor(imgx, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(image, 200,255,0)
+      
 
     _, contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
@@ -91,7 +92,7 @@ def walk(image):
             x, y, width, height = cv2.boundingRect(cnt)
             roi = thresh[y:y+height, x:x+width]
             l.append(roi)
-
+        
             roismall = cv2.resize(roi,(10,10))
             num = roismall.reshape((1,100))
             newcomer = num.astype(np.float32)
@@ -99,7 +100,9 @@ def walk(image):
             ret, results, neighbours, dist = knn_walk.findNearest(newcomer, 1)
             n.append(ret)
 
-
+    # cv2.imwrite('tst.png', img)
+    # return
+    
     for xx in n:
         s = convert_walk[int(xx)]
         f.append(s)
@@ -109,8 +112,44 @@ def walk(image):
     if ff in names_list:
         return ff
 
+def scrshot(p):
 
-def scrshot(crop_left, crop_top, crop_right, crop_bot):
+    if p == 'p1':
+        crop_left = 46
+        crop_top = 157
+        crop_right = 135
+        crop_bot = 177
+        # img= scrshot(46, 157, 135, 177) #p1 walk
+    elif p == 'p2':
+        crop_left = 350
+        crop_top = 90
+        crop_right = 435
+        crop_bot = 110
+        # img= scrshot(350, 90, 435, 110) #p2 walk
+    elif p == 'p3':
+        crop_left = 673
+        crop_top = 157
+        crop_right = 762
+        crop_bot = 176
+        # img= scrshot(673, 157, 762, 176) #p3 walk
+    elif p == 'p4':
+        crop_left = 675
+        crop_top = 329
+        crop_right = 767
+        crop_bot = 348
+        # img= scrshot(675, 329, 767, 348) #p4 walk
+    elif p == 'p5':
+        crop_left = 374
+        crop_top = 425
+        crop_right = 465
+        crop_bot = 444
+        # img= scrshot(374, 425, 465, 444) #p5 walk
+    elif p == 'p6':
+        crop_left = 46
+        crop_top = 329
+        crop_right = 135
+        crop_bot = 348
+        # img= scrshot(46, 329, 135, 348) #p6 walk
 
     hwnd = win32gui.FindWindow('PokerStarsTableFrameClass', None)
 
@@ -150,5 +189,5 @@ def get_vector(image):
 
 def check_image(image, knn):
     img = get_vector(image)
-    ret, results, neighbours, dist = knn.findNearest(img, 2)
+    ret, results, neighbours, dist = knn.findNearest(img, 1)
     return ret, results, neighbours, dist

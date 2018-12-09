@@ -11,6 +11,7 @@ import time
 import math, operator
 import functools
 from engine.processes import get_vector
+from engine.processes import scrshot
 
 
 
@@ -111,24 +112,37 @@ def lern_model(model_name):
     for i in l:
         index.append([i[0], i[2]])
 
-    knn = cv2.ml.KNearest_create()
-    knn.train(model,cv2.ml.ROW_SAMPLE,res)
-    return knn
+    return model, res, index
 
-def create_model(image, name, model_name, l=False):
-    if l==False:
+def create_model(image, name, model_name, new=True):
+    if new==True:
         ids = 0
-        l = []
-        l = create_l(l, image, ids, name)
+        new = []
+        new = create_l(new, image, ids, name)
         os.makedirs('models/%s'%model_name)
         with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
-            pickle.dump(l, f)
-        # print('new model created')
-        return l
+            pickle.dump(new, f)
+        print('create new model at models/%s/model_%s.pickle'%(model_name, model_name))
     else:
-        ids = l[0][0][0] + 1
-        l = create_l(l, image, ids, name)
+        with open('models/%s/model_%s.pickle'%(model_name, model_name), 'rb') as f:
+            new = pickle.load(f)
+        ids = new[-1][0][0] + 1
+        new = create_l(new, image, ids, name)
         with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
-            pickle.dump(l, f)
-        # print('add to model')
-        return l
+            pickle.dump(new, f)
+        print('add to model at models/%s/model_%s.pickle'%(model_name, model_name))
+
+def save_image(p):
+    img = scrshot(p)
+    new = get_vector(img)
+    arr_lst = [sum(new[0])]
+    os.makedirs('img/%s'%p)
+    while len(os.listdir('img/'+p))<10:
+        img = scrshot(p)
+        new = get_vector(img)
+        if sum(new[0]) not in arr_lst:
+            arr_lst.append(sum(new[0]))
+            img.save('img/'+p+'/image_'+str(sum(new[0]))+'.png')
+            print(p+' save to file '+str(sum(new[0])))
+        time.sleep(1)
+    print(p+' .......save compleat')
