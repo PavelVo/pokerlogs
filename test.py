@@ -6,7 +6,6 @@ from PIL import Image
 from engine.processes import *
 from models.data import *
 import time
-from engine.processes import get_vector
 from models.create_model import *
 from img.imp_list import *
 
@@ -26,10 +25,11 @@ from img.imp_list import *
 # new = walk(img)
 # new
 
-save_image('p2')
-save_image('p4')
-save_image('p5')
-save_image('p6')
+
+# save_image('p2')
+# save_image('p4')
+# save_image('p5')
+# save_image('p6')
 
 # print('start')
 # names = img_p1()
@@ -41,32 +41,31 @@ save_image('p6')
 #     img = Image.open('img/p1/%s.png'%xx)
 #     new = walk(img)
 #     print(new)
-
-
-# def m():
-#     img = Image.open('img/p1/fold.png')
-#     nm = ('bet','call','check','muck','postBB','postSB','raise')
-#     create_model(img, 'fold', 'walk2', new=True)
+    
+# def m(p):
+#     im = os.listdir('img/'+p)[0]
+#     im_name = os.listdir('img/'+p)[0][:-4]
+#     img = Image.open('img/'+p+'/'+im)
+#     model_name = 'walk_'+p
+#     create_model(img, im_name, model_name, new=True)
+#     nm = os.listdir('img/'+p)[1:]
 #     for n in nm:
-#         img = Image.open('img/p1/%s.png'%n)
-#         create_model(img, '%s'%n, 'walk2', 'walk2')
-# m()
+#         img = Image.open('img/'+p+'/'+n)
+#         im_name = n[:-4]
+#         create_model(img, im_name, model_name, model_name)
+# m('p6')
 
-# with open('models/walk2/model_walk2.pickle', 'rb') as f:
+# with open('models/walk_p2/model_walk_p2.pickle', 'rb') as f:
 #         l = pickle.load(f)
-# l[4]
-
-
-# model, res, index = lern_model('walk2')
-# # index[2]
-# knn = cv2.ml.KNearest_create()
-# knn.train(model,cv2.ml.ROW_SAMPLE,res)
-# # img= scrshot('p3')
-# img = Image.open('img/p1/postBB.png')
-# ret, results, neighbours, dist = check_image(img, knn)
-# if dist[0][0] == 0:
-#     print(index[int(ret)][1][0])
-
+# l
+# x = walk2('p1')
+nn = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6']
+while True:
+    for n in nn:
+        x = walk2(n)
+        if x != None:
+            print(n+' '+ x)    
+    time.sleep(1)
 
 # def s_shot(p):
 #     if p == 1:

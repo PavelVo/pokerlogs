@@ -191,3 +191,74 @@ def check_image(image, knn):
     img = get_vector(image)
     ret, results, neighbours, dist = knn.findNearest(img, 1)
     return ret, results, neighbours, dist
+
+def lern_model(model_name):
+    with open('models/%s/model_%s.pickle'%(model_name, model_name), 'rb') as f:
+        l = pickle.load(f)
+    
+    model = []
+    for mm in l:
+        m = mm[1][0][0].astype(np.float32)
+        model.append(m)
+    model = np.array(model)
+
+    res=[]
+    for rr in l:
+        res.append(rr[0])
+    res = np.array(res).astype(np.float32)
+
+    index=[]
+    for i in l:
+        index.append([i[0], i[2]])
+
+    return model, res, index
+
+model_p1, res_p1, index_p1 = lern_model('walk_p1')
+knn_p1 = cv2.ml.KNearest_create()
+knn_p1.train(model_p1,cv2.ml.ROW_SAMPLE,res_p1)
+
+model_p2, res_p2, index_p2 = lern_model('walk_p2')
+knn_p2 = cv2.ml.KNearest_create()
+knn_p2.train(model_p2,cv2.ml.ROW_SAMPLE,res_p2)
+
+model_p3, res_p3, index_p3 = lern_model('walk_p3')
+knn_p3 = cv2.ml.KNearest_create()
+knn_p3.train(model_p3,cv2.ml.ROW_SAMPLE,res_p3)
+
+model_p4, res_p4, index_p4 = lern_model('walk_p4')
+knn_p4 = cv2.ml.KNearest_create()
+knn_p4.train(model_p4,cv2.ml.ROW_SAMPLE,res_p4)
+
+model_p5, res_p5, index_p5 = lern_model('walk_p5')
+knn_p5 = cv2.ml.KNearest_create()
+knn_p5.train(model_p5,cv2.ml.ROW_SAMPLE,res_p5)
+
+model_p6, res_p6, index_p6 = lern_model('walk_p6')
+knn_p6 = cv2.ml.KNearest_create()
+knn_p6.train(model_p6,cv2.ml.ROW_SAMPLE,res_p6)
+
+def walk2(p):
+    if p == 'p1':
+        knn = knn_p1
+        index = index_p1
+    elif p == 'p2':
+        knn = knn_p2
+        index = index_p2
+    elif p == 'p3':
+        knn = knn_p3
+        index = index_p3
+    elif p == 'p4':
+        knn = knn_p4
+        index = index_p4
+    elif p == 'p5':
+        knn = knn_p5
+        index = index_p5
+    elif p == 'p6':
+        knn = knn_p6
+        index = index_p6
+    
+    img= scrshot(p)
+    # img = Image.open('img/p2/postBB.png')
+    ret, results, neighbours, dist = check_image(img, knn)
+    if dist[0][0] == 0:
+        return (index[int(ret)][1][0])

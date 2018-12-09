@@ -43,3 +43,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# nn = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6']
+# while True:
+#     for n in nn:
+#         x = walk2(n)
+#         if x != None:
+#             print(n+' '+ x)    
+#     time.sleep(1)
