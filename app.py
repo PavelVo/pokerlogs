@@ -47,7 +47,7 @@ if __name__ == "__main__":
 # nn = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6']
 # while True:
 #     for n in nn:
-#         x = walk2(n)
+#         x = walk2(n, 'walk')
 #         if x != None:
 #             print(n+' '+ x)    
 #     time.sleep(1)
