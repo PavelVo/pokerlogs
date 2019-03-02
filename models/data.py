@@ -132,13 +132,13 @@ def create_model(image, name, model_name, new=True):
             pickle.dump(new, f)
         print('add to model at models/%s/model_%s.pickle'%(model_name, model_name))
 
-def save_image(p):
-    img = scrshot(p)
+def save_image(p, act):
+    img = scrshot(p, act)
     new = get_vector(img)
     arr_lst = [sum(new[0])]
     os.makedirs('img/%s'%p)
-    while len(os.listdir('img/'+p))<10:
-        img = scrshot(p)
+    while len(os.listdir('img/'+p))<100:
+        img = scrshot(p, act)
         new = get_vector(img)
         if sum(new[0]) not in arr_lst:
             arr_lst.append(sum(new[0]))

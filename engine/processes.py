@@ -154,7 +154,7 @@ def scrshot(p, act):
     
     elif act == 'chips':
         if p == 'p1':
-            crop_left = 46
+            crop_left = 50
             crop_top = 179
             crop_right = 135
             crop_bot = 200
