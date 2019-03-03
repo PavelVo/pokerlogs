@@ -1,49 +1,100 @@
 #%%
-<<<<<<< HEAD
 
-# import shutil
-# from engine.processes import *
-# from models.data import *
-# import time
-# image = scrshot(64, 53, 140, 68) # hand
-# l = create_model(image, 'hand', 'hand')
-# image
-=======
 import shutil
-import os
-import numpy as np
-from PIL import Image
-import cv2
-import pickle
-import numpy as np
-import win32gui
-import win32ui
-from ctypes import windll
-
-import pyscreenshot as ImageGrab
-from PIL import Image
-import PIL
-import pytesseract
-from operator import itemgetter
-import os
-import time
-import math, operator
-import functools
-
 from engine.processes import *
-from models.data import *
 import time
-from models.create_model import *
-from img.imp_list import *
+import os
 
-x =  {'p1':walk2('p1','chips')
-        ,'p2':walk2('p2','chips')
-        ,'p3':walk2('p3','chips')
-        ,'p4':walk2('p4','chips')
-        ,'p5':walk2('p5','chips')
-        ,'p6':walk2('p6','chips')
-        }
-x
+
+def in_array(array, arrays):
+    for ars in arrays:
+        if np.array_equal(array, ars) == True:
+            return True
+        else:
+            return False
+
+def array_list():
+    nom_arr=[]
+    nom_list = os.listdir('img/nom')
+    for nl in nom_list:
+        img_nom = get_vector(Image.open('img/nom/'+nl))
+        nom_arr.append(img_nom)
+    return nom_arr
+
+# n=1
+# new_img = scrshot('flop1', 'board_nom')
+# new_img.save('img/nom/input'+str(n)+'.png')
+# nom_arr = array_list()
+
+for x in range(10):
+    new_img = scrshot('flop1', 'board_nom')
+    print(in_array(get_vector(new_img), nom_arr))
+    if in_array(get_vector(new_img), nom_arr) == False:
+        new_img.save('img/nom/input'+str(n)+'.png')
+        nom_arr = array_list()
+        n=n+1
+    time.sleep(5)
+
+
+
+# Image.open('img/nom/input1.png')
+# image = scrshot('flop1', 'board_nom')
+# image.save('img/nom/input1.png')
+
+# y=[]
+# x = get_vector(scrshot('flop1', 'board_nom'))
+# y.append(x)
+# x = get_vector(scrshot('flop2', 'board_nom'))
+# y.append(x)
+# x = get_vector(scrshot('flop3', 'board_nom'))
+# y.append(x)
+
+# x = get_vector(scrshot('flop1', 'board_nom'))
+
+
+
+
+
+
+
+
+# np.array_equal(x,x2)
+
+# n = 1
+# image = scrshot('flop1', 'board_nom')
+# image.save('img/nom/input'+str(n)+'.png')
+# for x in range(5):
+#     stage = ['flop1', 'flop2', 'flop3','turn','river']
+#     i = 1
+#     for s in stage:
+#         image = scrshot(s, 'board_nom')
+#         image.save('img/tmp/input'+str(i)+'.png')
+#         i=i+1
+
+#     tmp_list = os.listdir('img/tmp')
+#     nom_list = os.listdir('img/nom')
+#     q=0
+
+#     for tl in tmp_list:
+#         im_tmp = Image.open('img/tmp/'+tl)
+#         for nl in nom_list:
+#             im_nom = Image.open('img/nom/'+nl)
+#             if im_nom==im_tmp:
+#                 q = 1
+#                 print()
+#         if q==0:
+#             n=n+1
+#             im_tmp.save('img/nom/input'+str(n)+'.png')
+#             nom_list = os.listdir('img/nom')
+#             q=0
+
+
+
+
+
+# image.save('img/nom/input2.png')
+
+
 # im = scrshot('p1', 'chips')
 # im
 # chips(im)
@@ -60,7 +111,6 @@ x
 # y=x
 # image = scrshot('p', 'hand')
 # x_hand = get_vector(scrshot('p', 'hand'))
->>>>>>> origin/master
 
 # while True:
 #     y_hand = get_vector(scrshot('p', 'hand'))
@@ -91,7 +141,6 @@ x
 # new = walk(img)
 # new
 
-<<<<<<< HEAD
 # img= scrshot(350, 90, 435, 110) #p2 walk
 # # img
 # new = walk(img)
@@ -114,7 +163,6 @@ x
 
 
 
-=======
 # save_image('p1', 'walk')
 
 # def m(p):
@@ -133,7 +181,6 @@ x
 # for name in names:
 #     m(name)
 # m('p1')
->>>>>>> origin/master
 
 # with open('models/walk_p2/model_walk_p2.pickle', 'rb') as f:
 #         l = pickle.load(f)

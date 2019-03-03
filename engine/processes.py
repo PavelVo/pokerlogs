@@ -189,12 +189,81 @@ def scrshot(p, act):
             crop_right = 135
             crop_bot = 369
             # img= scrshot(46, 351, 135, 369) #p6 chips
+            
     elif act == 'hand':
         crop_left = 46
         crop_top = 53
         crop_right = 140
         crop_bot = 68
         # img = scrshot(64, 53, 140, 68) # hand
+
+    elif act == 'table':
+        if p == 'p1':
+            crop_left = 46
+            crop_top = 157
+            crop_right = 135
+            crop_bot = 177
+            # img= scrshot(46, 157, 135, 177) #p1 walk
+        elif p == 'p2':
+            crop_left = 350
+            crop_top = 90
+            crop_right = 435
+            crop_bot = 110
+            # img= scrshot(350, 90, 435, 110) #p2 walk
+    
+    elif act == 'board_nom':
+        if p == 'flop1':
+            crop_left = 273
+            crop_top = 222
+            crop_right = 289
+            crop_bot = 241
+        elif p == 'flop2':
+            crop_left = 327
+            crop_top = 222
+            crop_right = 343
+            crop_bot = 241
+        elif p == 'flop3':
+            crop_left = 381
+            crop_top = 222
+            crop_right = 397
+            crop_bot = 241
+        elif p == 'turn':
+            crop_left = 435
+            crop_top = 222
+            crop_right = 451
+            crop_bot = 241
+        elif p == 'river':
+            crop_left = 489
+            crop_top = 222
+            crop_right = 505
+            crop_bot = 241
+    
+    elif act == 'board_suit':
+        if p == 'flop1':
+            crop_left = 273
+            crop_top = 241
+            crop_right = 289
+            crop_bot = 260
+        elif p == 'flop2':
+            crop_left = 327
+            crop_top = 241
+            crop_right = 343
+            crop_bot = 260
+        elif p == 'flop3':
+            crop_left = 381
+            crop_top = 241
+            crop_right = 397
+            crop_bot = 260
+        elif p == 'turn':
+            crop_left = 435
+            crop_top = 241
+            crop_right = 451
+            crop_bot = 260
+        elif p == 'river':
+            crop_left = 489
+            crop_top = 241
+            crop_right = 505
+            crop_bot = 260
 
     hwnd = win32gui.FindWindow('PokerStarsTableFrameClass', None)
 
