@@ -6,7 +6,6 @@ import time
 import os
 
 
-<<<<<<< HEAD
 # def in_array(array, arrays):
 #     for ars in arrays:
 #         if np.array_equal(array, ars) == True:
@@ -37,7 +36,6 @@ import os
 #     time.sleep(5)
 
 scrshot('flop1', 'board_nom')
-=======
 def in_array(array, arrays):
     for ars in arrays:
         if np.array_equal(array, ars) == True:
@@ -87,7 +85,6 @@ for x in range(100):
             nom_arr1 = array_list('suit')
         time.sleep(1)
     time.sleep(1)
->>>>>>> 903830a6908fcb4790098cbd7c9ef48e473ab09b
 
 
 # Image.open('img/nom/input1.png')
