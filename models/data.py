@@ -129,65 +129,6 @@ def create_model(image, name, model_name, new=True):
         ids = new[-1][0][0] + 1
         new = create_l(new, image, ids, name)
         with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
-<<<<<<< HEAD
-            pickle.dump(l, f)
-        # print('add to model')
-        return l
-
-
-def mm(n, res):
-    if n == 1:
-        x = 60-2*(15/3)/10+12/3
-        z = x-res
-        if z == 0:
-            print('Пример '+str(n)+' решен правильно')
-        else:
-            print('Пример '+str(n)+' решен НЕ правильно')
-        
-    if n == 2:
-        x = 90/10*2+6/2*8-31*0
-        z = x-res
-        if z == 0:
-            print('Пример '+str(n)+' решен правильно')
-        else:
-            print('Пример '+str(n)+' решен НЕ правильно')
-        
-    if n == 3:
-        x = 19+35-21/7*6+48
-        z = x-res
-        if z == 0:
-            print('Пример '+str(n)+' решен правильно')
-        else:
-            print('Пример '+str(n)+' решен НЕ правильно')
-        
-    if n == 4:
-        x = 86-2*(41-26)/3+18
-        z = x-res
-        if z == 0:
-            print('Пример '+str(n)+' решен правильно')
-        else:
-            print('Пример '+str(n)+' решен НЕ правильно')
-        
-    if n == 5:
-        x = 75-39+27-40/10*7
-        z = x-res
-        if z == 0:
-            print('Пример '+str(n)+' решен правильно')
-        else:
-            print('Пример '+str(n)+' решен НЕ правильно')
-        
-    if n == 6:
-        x = 84-66+57-2*4*3/24
-        z = x-res
-        if z == 0:
-            print('Пример '+str(n)+' решен правильно')
-        else:
-            print('Пример '+str(n)+' решен НЕ правильно')
-
-
-
-
-=======
             pickle.dump(new, f)
         print('add to model at models/%s/model_%s.pickle'%(model_name, model_name))
 
@@ -205,4 +146,3 @@ def save_image(p, act):
             print(p+' save to file '+str(sum(new[0])))
         time.sleep(1)
     print(p+' .......save compleat')
->>>>>>> origin/master

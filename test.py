@@ -6,35 +6,36 @@ import time
 import os
 
 
-def in_array(array, arrays):
-    for ars in arrays:
-        if np.array_equal(array, ars) == True:
-            return True
-        else:
-            return False
+# def in_array(array, arrays):
+#     for ars in arrays:
+#         if np.array_equal(array, ars) == True:
+#             return True
+#         else:
+#             return False
 
-def array_list():
-    nom_arr=[]
-    nom_list = os.listdir('img/nom')
-    for nl in nom_list:
-        img_nom = get_vector(Image.open('img/nom/'+nl))
-        nom_arr.append(img_nom)
-    return nom_arr
+# def array_list():
+#     nom_arr=[]
+#     nom_list = os.listdir('img/nom')
+#     for nl in nom_list:
+#         img_nom = get_vector(Image.open('img/nom/'+nl))
+#         nom_arr.append(img_nom)
+#     return nom_arr
 
 # n=1
 # new_img = scrshot('flop1', 'board_nom')
 # new_img.save('img/nom/input'+str(n)+'.png')
 # nom_arr = array_list()
 
-for x in range(10):
-    new_img = scrshot('flop1', 'board_nom')
-    print(in_array(get_vector(new_img), nom_arr))
-    if in_array(get_vector(new_img), nom_arr) == False:
-        new_img.save('img/nom/input'+str(n)+'.png')
-        nom_arr = array_list()
-        n=n+1
-    time.sleep(5)
+# for x in range(10):
+#     new_img = scrshot('flop1', 'board_nom')
+#     print(in_array(get_vector(new_img), nom_arr))
+#     if in_array(get_vector(new_img), nom_arr) == False:
+#         new_img.save('img/nom/input'+str(n)+'.png')
+#         nom_arr = array_list()
+#         n=n+1
+#     time.sleep(5)
 
+scrshot('flop1', 'board_nom')
 
 
 # Image.open('img/nom/input1.png')
