@@ -10,6 +10,33 @@ import pickle
 import time
 import math, operator
 import functools
+from processes import get_vector
+from processes import scrshot
+
+
+def create_l(l, image, ids, name):
+    img = get_vector(image)
+    l.append([[ids], [img], [name]])
+    return l
+
+
+def create_model(image, name, model_name, new=True):
+    if new==True:
+        ids = 0
+        new = []
+        new = create_l(new, image, ids, name)
+        os.makedirs('models/%s'%model_name)
+        with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
+            pickle.dump(new, f)
+        print('create new model at models/%s/model_%s.pickle'%(model_name, model_name))
+    else:
+        with open('models/%s/model_%s.pickle'%(model_name, model_name), 'rb') as f:
+            new = pickle.load(f)
+        ids = new[-1][0][0] + 1
+        new = create_l(new, image, ids, name)
+        with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
+            pickle.dump(new, f)
+        print('add to model at models/%s/model_%s.pickle'%(model_name, model_name))
 
 
 def continium_model(names):
