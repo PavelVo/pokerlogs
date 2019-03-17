@@ -42,3 +42,5 @@ def save_new_images(folder_name, scrshot_val1, scrshot_v2):
             new_img.save('img/'+folder_name+'/input'+str(n(folder_name))+'.png')
             nom_arr = array_list(folder_name)
         time.sleep(1)
+
+save_new_images('suit', 'flop1', 'board_suit')

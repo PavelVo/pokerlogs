@@ -1,3 +1,4 @@
+#%%
 import pyscreenshot as ImageGrab
 from PIL import Image
 import PIL
@@ -19,26 +20,31 @@ def create_l(l, image, ids, name):
     l.append([[ids], [img], [name]])
     return l
 
+def create_model(model_name): #must to be like img folder
+    # if new==True:
+    if not os.path.exists('models/'+model_name):
+        os.makedirs('models/'+model_name)
+    
+    ids = 0
+    new = []
+    
+    for img_name in os.listdir('img/'+model_name):
+        image = Image.open('img/'+model_name+'/'+img_name)
+        name = img_name[:-4]
+        if len(new)==0:
+            new = create_l(new, image, ids, name)
+            with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
+                pickle.dump(new, f)
+        else:
+            with open('models/%s/model_%s.pickle'%(model_name, model_name), 'rb') as f:
+                new = pickle.load(f)
+            ids = new[-1][0][0] + 1
+            new = create_l(new, image, ids, name)
+            with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
+                pickle.dump(new, f)
+    print('create new model '+model_name+' comleat')
 
-def create_model(image, name, model_name, new=True):
-    if new==True:
-        ids = 0
-        new = []
-        new = create_l(new, image, ids, name)
-        os.makedirs('models/%s'%model_name)
-        with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
-            pickle.dump(new, f)
-        print('create new model at models/%s/model_%s.pickle'%(model_name, model_name))
-    else:
-        with open('models/%s/model_%s.pickle'%(model_name, model_name), 'rb') as f:
-            new = pickle.load(f)
-        ids = new[-1][0][0] + 1
-        new = create_l(new, image, ids, name)
-        with open ('models/%s/model_%s.pickle'%(model_name, model_name), 'wb') as f:
-            pickle.dump(new, f)
-        print('add to model at models/%s/model_%s.pickle'%(model_name, model_name))
-
-
+create_model('suit')
 # ---------------------------------------------
 # old code!!!!!
 
@@ -123,3 +129,5 @@ def create_model(image, name, model_name, new=True):
     
 #     print('models sevd to models/walk')
 # ---------------------------------------------------------------
+
+#%%

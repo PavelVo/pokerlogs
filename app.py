@@ -12,6 +12,7 @@ from processes import *
 
 def main():
     pp = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6']
+    bb = ['flop', 'turn', 'river']
     x =  {'p1':walk2('p1','chips')
         ,'p2':walk2('p2','chips')
         ,'p3':walk2('p3','chips')
@@ -26,8 +27,9 @@ def main():
     while True:
         y_hand = get_vector(scrshot('p', 'hand'))
         if not np.array_equal(x_hand, y_hand):
-            print('new hand')
+            print('---------- new hand -----------')
             x_hand=y_hand
+            bb = ['flop', 'turn', 'river']
         for p in pp:
             wlc = walk2(p, 'walk')
             if wlc != None:
@@ -49,6 +51,11 @@ def main():
                     pp.remove(p)
                     print(p+' ... '+ wlc+' ... '+str(res))
                     # print(old_res, new_res)
+        for b in bb:
+            card = board(b)
+            if len(card) != 0:
+                print(card)
+                bb.remove(b)
         time.sleep(0.5)
 
 # def main():

@@ -47,70 +47,70 @@ def chips(image):
     n = int("".join(map(str, n)))
     return n
 
-with open('models/walk/model_walk.pickle', 'rb') as f:
-    model_wolk = pickle.load(f)
-with open('models/walk/result_walk.pickle', 'rb') as f:
-    result_walk = pickle.load(f)
-with open('models/walk/convert_walk.pickle', 'rb') as f:
-    convert_walk = pickle.load(f)
-with open('models/walk/names_list.pickle', 'rb') as f:
-    names_list = pickle.load(f)
+# with open('models/walk/model_walk.pickle', 'rb') as f:
+#     model_wolk = pickle.load(f)
+# with open('models/walk/result_walk.pickle', 'rb') as f:
+#     result_walk = pickle.load(f)
+# with open('models/walk/convert_walk.pickle', 'rb') as f:
+#     convert_walk = pickle.load(f)
+# with open('models/walk/names_list.pickle', 'rb') as f:
+#     names_list = pickle.load(f)
 
-knn_walk = cv2.ml.KNearest_create()
-knn_walk.train(model_wolk,cv2.ml.ROW_SAMPLE, result_walk)
+# knn_walk = cv2.ml.KNearest_create()
+# knn_walk.train(model_wolk,cv2.ml.ROW_SAMPLE, result_walk)
 
-def walk(image):
-    img = np.array(image)
-    # image.save('img/tmp/in_tmp.png')
-    # img = cv2.imread('img/tmp/in_tmp.png')
+# def walk(image):
+#     img = np.array(image)
+#     # image.save('img/tmp/in_tmp.png')
+#     # img = cv2.imread('img/tmp/in_tmp.png')
 
-    hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    hsv_pt = np.array([ 0,  0, 120], dtype='uint8')
-    hsv_min = (hsv_pt * 0.01).astype('uint8')
-    hsv_max = (hsv_pt - 1).astype('uint8')
-    result = cv2.inRange(hsv_img, hsv_min, hsv_max)
-    cv2.imwrite('img/tmp/output_tmp.png', result)
-    img = cv2.imread('img/tmp/output_tmp.png')
-    imgx = np.invert(np.array(img, dtype='uint8'))
-    image = cv2.cvtColor(imgx, cv2.COLOR_BGR2GRAY)
-    ret, thresh = cv2.threshold(image, 200,255,0)
+#     hsv_img = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+#     hsv_pt = np.array([ 0,  0, 120], dtype='uint8')
+#     hsv_min = (hsv_pt * 0.01).astype('uint8')
+#     hsv_max = (hsv_pt - 1).astype('uint8')
+#     result = cv2.inRange(hsv_img, hsv_min, hsv_max)
+#     cv2.imwrite('img/tmp/output_tmp.png', result)
+#     img = cv2.imread('img/tmp/output_tmp.png')
+#     imgx = np.invert(np.array(img, dtype='uint8'))
+#     image = cv2.cvtColor(imgx, cv2.COLOR_BGR2GRAY)
+#     ret, thresh = cv2.threshold(image, 200,255,0)
       
 
-    _, contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+#     _, contours, _ = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-    contours = sorted(contours, key=lambda ctr: cv2.boundingRect(ctr)[0])
-    l=[]
-    n=[]
-    f = []
-    for cnt in contours:
-        rect = cv2.minAreaRect(cnt)
-        box = cv2.boxPoints(rect)
-        box = np.int0(box)
-        area = int(rect[1][0]*rect[1][1])
-        if area > 10:
-            img = cv2.drawContours(img, [box], 0, (0,255,0), 1)
-            x, y, width, height = cv2.boundingRect(cnt)
-            roi = thresh[y:y+height, x:x+width]
-            l.append(roi)
+#     contours = sorted(contours, key=lambda ctr: cv2.boundingRect(ctr)[0])
+#     l=[]
+#     n=[]
+#     f = []
+#     for cnt in contours:
+#         rect = cv2.minAreaRect(cnt)
+#         box = cv2.boxPoints(rect)
+#         box = np.int0(box)
+#         area = int(rect[1][0]*rect[1][1])
+#         if area > 10:
+#             img = cv2.drawContours(img, [box], 0, (0,255,0), 1)
+#             x, y, width, height = cv2.boundingRect(cnt)
+#             roi = thresh[y:y+height, x:x+width]
+#             l.append(roi)
         
-            roismall = cv2.resize(roi,(10,10))
-            num = roismall.reshape((1,100))
-            newcomer = num.astype(np.float32)
+#             roismall = cv2.resize(roi,(10,10))
+#             num = roismall.reshape((1,100))
+#             newcomer = num.astype(np.float32)
 
-            ret, results, neighbours, dist = knn_walk.findNearest(newcomer, 1)
-            n.append(ret)
+#             ret, results, neighbours, dist = knn_walk.findNearest(newcomer, 1)
+#             n.append(ret)
 
-    # cv2.imwrite('tst.png', img)
-    # return
+#     # cv2.imwrite('tst.png', img)
+#     # return
     
-    for xx in n:
-        s = convert_walk[int(xx)]
-        f.append(s)
-    ff = "".join(map(str, f))
-    ff
+#     for xx in n:
+#         s = convert_walk[int(xx)]
+#         f.append(s)
+#     ff = "".join(map(str, f))
+#     ff
     
-    if ff in names_list:
-        return ff
+#     if ff in names_list:
+#         return ff
 
 def scrshot(p, act):
     
@@ -377,6 +377,68 @@ def walk2(p, act):
         ret, results, neighbours, dist = check_image(img, knn)
         if dist[0][0] == 0:
             return (index[int(ret)][1][0])
+            
     elif act == 'chips':
         img= scrshot(p, act)
         return chips(img)
+
+
+
+model_nom, res_nom, index_nom = lern_model('nom')
+knn_nom = cv2.ml.KNearest_create()
+knn_nom.train(model_nom,cv2.ml.ROW_SAMPLE,res_nom)
+
+model_suit, res_suit, index_suit = lern_model('suit')
+knn_suit = cv2.ml.KNearest_create()
+knn_suit.train(model_suit,cv2.ml.ROW_SAMPLE,res_suit)
+
+def board_pos(pos, name):
+    if name == 'board_nom':
+        knn = knn_nom
+        index = index_nom
+    else:
+        knn = knn_suit
+        index = index_suit
+    
+    img = scrshot(pos, name)
+    ret, results, neighbours, dist = check_image(img, knn)
+    # print(ret, results, neighbours, dist)
+    r = (index[int(ret)][1][0])[:1]
+    if r == '1':
+        r = '10'
+
+    return r, dist
+
+def board(pos):
+    if pos == 'flop':
+        res = []
+        nom, dist = board_pos('flop1', 'board_nom')
+        if dist[0][0] == 0:
+
+            suit, dist = board_pos('flop1', 'board_suit')
+            res.append(nom+suit)
+            
+            nom, dist = board_pos('flop2', 'board_nom')
+            suit, dist = board_pos('flop2', 'board_suit')
+            res.append(nom+suit)
+
+            nom, dist = board_pos('flop3', 'board_nom')
+            suit, dist = board_pos('flop3', 'board_suit')
+            res.append(nom+suit)
+        
+        return res
+    elif pos == 'turn':
+        res = []
+        nom, dist = board_pos('turn', 'board_nom')
+        if dist[0][0] == 0:
+            suit, dist = board_pos('turn', 'board_suit')
+            res.append(nom+suit)
+        return res
+
+    elif pos == 'river':
+        res = []
+        nom, dist = board_pos('river', 'board_nom')
+        if dist[0][0] == 0:
+            suit, dist = board_pos('river', 'board_suit')
+            res.append(nom+suit)
+        return res
